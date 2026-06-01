@@ -47,6 +47,8 @@ bash scripts/setup_termux.sh
 - termux-api
 - Python 依赖
 
+如果你之前执行过旧版本脚本并看到 `ERROR: Installing pip is forbidden`，先 `git pull` 或重新下载最新仓库，再重新运行这个脚本。
+
 ## 配置账号
 
 先复制示例配置：

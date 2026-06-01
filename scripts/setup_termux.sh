@@ -6,5 +6,4 @@ cd "$SCRIPT_DIR/.."
 
 pkg update -y
 pkg install -y python git termux-api
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
