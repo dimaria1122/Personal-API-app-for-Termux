@@ -1,0 +1,19 @@
+tasks:
+  - name: midnight_bot
+    bot: "@example_midnight_bot"
+    command: "/checkin"
+    accounts: ["main", "alt1", "alt2"]
+    schedule:
+      mode: calendar_day
+      timezone: Asia/Shanghai
+      earliest_time: "00:05"
+      random_delay_minutes: [5, 45]
+
+  - name: interval_bot
+    bot: "@example_interval_bot"
+    command: "/checkin"
+    accounts: ["main", "alt1", "alt2"]
+    schedule:
+      mode: interval_after_success
+      min_interval_hours: 24
+      random_delay_minutes: [5, 40]

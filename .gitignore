@@ -1,0 +1,9 @@
+.test-tmp/
+.tmp/
+.pytest_cache/
+pytest-cache-files-*/
+data/
+*.session
+*.session-journal
+__pycache__/
+*.pyc

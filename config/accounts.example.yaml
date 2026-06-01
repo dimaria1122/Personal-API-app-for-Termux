@@ -1,0 +1,10 @@
+accounts:
+  - name: main
+    phone: "+8613800000000"
+    session: account_1
+  - name: alt1
+    phone: "+8613900000000"
+    session: account_2
+  - name: alt2
+    phone: "+8615000000000"
+    session: account_3
