@@ -81,8 +81,8 @@ Example task that can sign after local midnight:
 
 ```yaml
 - name: midnight_bot
-  bot: "@example_midnight_bot"
-  command: "/checkin"
+  bot: "@freexzteam_bot"
+  command: "/sign"
   accounts: ["main", "alt1", "alt2"]
   schedule:
     mode: calendar_day
@@ -95,8 +95,8 @@ Example task that must wait after the last successful sign-in:
 
 ```yaml
 - name: interval_bot
-  bot: "@example_interval_bot"
-  command: "/checkin"
+  bot: "@dw759bot"
+  command: "/sign"
   accounts: ["main", "alt1", "alt2"]
   schedule:
     mode: interval_after_success

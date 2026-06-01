@@ -45,13 +45,7 @@ bash scripts/setup_termux.sh
 - Python
 - Git
 - termux-api
-- python-yaml
-- tzdata
 - Python 依赖
-
-如果你之前执行过旧版本脚本并看到 `ERROR: Installing pip is forbidden`，先 `git pull` 或重新下载最新仓库，再重新运行这个脚本。
-
-如果依赖安装时提示 `No module named 'yaml'`，说明 `python-yaml` 没装成功，先重新跑一次 `bash scripts/setup_termux.sh`。如果只缺 `pyrogram` 或 `tgcrypto`，按脚本里的提示单独补装即可。
 
 ## 配置账号
 
@@ -116,8 +110,8 @@ bash scripts/login_accounts.sh
 
 ```yaml
 - name: midnight_bot
-  bot: "@example_midnight_bot"
-  command: "/checkin"
+  bot: "@freexzteam_bot"
+  command: "/sign"
   accounts: ["main", "alt1", "alt2"]
   schedule:
     mode: calendar_day
@@ -130,8 +124,8 @@ bash scripts/login_accounts.sh
 
 ```yaml
 - name: interval_bot
-  bot: "@example_interval_bot"
-  command: "/checkin"
+  bot: "@dw759bot"
+  command: "/sign"
   accounts: ["main", "alt1", "alt2"]
   schedule:
     mode: interval_after_success
