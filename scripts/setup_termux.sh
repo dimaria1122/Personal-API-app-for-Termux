@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/.."
 
 pkg update -y
-pkg install -y python git termux-api python-yaml
+pkg install -y python git termux-api python-yaml tzdata
 
 if ! python -m pip install --user -r requirements.txt; then
   echo "pip dependency install failed."
