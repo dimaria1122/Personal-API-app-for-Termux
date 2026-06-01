@@ -8,6 +8,7 @@ from src.control_bot import (
     is_allowed_user,
     parse_allowed_user_ids,
     parse_allowed_usernames,
+    _ensure_session_dir,
     run_scheduler_once,
 )
 
@@ -28,6 +29,16 @@ def test_build_control_keyboard_exposes_expected_buttons():
     labels = [button.text for row in keyboard.inline_keyboard for button in row]
 
     assert labels == ["Run Now", "Dry Run", "Status"]
+
+
+def test_ensure_session_dir_creates_missing_directory(workspace_tmp):
+    session_dir = workspace_tmp / "control-bot"
+
+    result = _ensure_session_dir(session_dir)
+
+    assert result == session_dir
+    assert session_dir.exists()
+    assert session_dir.is_dir()
 
 
 def test_run_scheduler_once_dry_run_reports_due_and_keeps_state_untouched(workspace_tmp):

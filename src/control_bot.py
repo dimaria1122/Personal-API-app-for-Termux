@@ -110,6 +110,12 @@ def _build_transport(account_dir: str | Path):
     return PyrogramTransport(api_id=credentials.api_id, api_hash=credentials.api_hash, sessions_dir=account_dir)
 
 
+def _ensure_session_dir(session_dir: str | Path) -> Path:
+    path = Path(session_dir)
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
 def run_scheduler_once(
     *,
     accounts_path: str | Path,
@@ -174,6 +180,7 @@ def main(argv: list[str] | None = None) -> int:
     if not token:
         raise RuntimeError("Set CONTROL_BOT_TOKEN from BotFather before starting the control bot.")
 
+    session_dir = _ensure_session_dir(args.session_dir)
     credentials = load_api_credentials()
     Client, filters, idle, _, _ = _load_pyrogram()
     app = Client(
@@ -181,7 +188,7 @@ def main(argv: list[str] | None = None) -> int:
         api_id=credentials.api_id,
         api_hash=credentials.api_hash,
         bot_token=token,
-        workdir=str(args.session_dir),
+        workdir=str(session_dir),
     )
 
     keyboard = _to_pyrogram_keyboard(build_control_keyboard())

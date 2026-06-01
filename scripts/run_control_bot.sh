@@ -12,4 +12,6 @@ elif [ -f "config/public-api.env" ]; then
   source "config/public-api.env"
 fi
 
+mkdir -p data/control-bot
+
 python -m src.control_bot
