@@ -31,6 +31,15 @@ def _parse_iso_datetime(value: str) -> datetime:
     return parsed
 
 
+def _record_next_eligible_at(record: dict | None) -> datetime | None:
+    if not record:
+        return None
+    value = record.get("next_eligible_at")
+    if not value:
+        return None
+    return _parse_iso_datetime(value)
+
+
 def is_due_calendar_day(
     now: datetime,
     last_success_date: str | None,
@@ -72,6 +81,9 @@ def is_task_due(now: datetime, account_name: str, task: dict, record: dict | Non
     mode = schedule.get("mode")
     record = record or {}
     seed = state_key(account_name, task["name"])
+    next_eligible_at = _record_next_eligible_at(record)
+    if next_eligible_at and now < next_eligible_at:
+        return False
     if mode == "calendar_day":
         return is_due_calendar_day(
             now=now,

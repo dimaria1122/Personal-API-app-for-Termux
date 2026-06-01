@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import time
 
 
 class BackendUnavailableError(RuntimeError):
@@ -39,5 +40,16 @@ class PyrogramTransport:
 
     def send_command(self, account: dict, task: dict) -> str:
         with self._client(account["session"]) as app:
-            app.send_message(task["bot"], task["command"])
-        return "sent"
+            sent = app.send_message(task["bot"], task["command"])
+            return self._wait_for_response(app, task["bot"], sent.id)
+
+    def _wait_for_response(self, app, chat_id: str, after_message_id: int, timeout_seconds: int = 20) -> str:
+        deadline = time.time() + timeout_seconds
+        while time.time() < deadline:
+            for message in app.get_chat_history(chat_id, limit=10):
+                if message.id <= after_message_id:
+                    break
+                if message.text:
+                    return message.text
+            time.sleep(2)
+        return ""

@@ -95,8 +95,17 @@ def main(argv=None) -> int:
     login_parser.add_argument("--sessions-dir", default="data/sessions")
     login_parser.set_defaults(func=_cmd_login)
 
+    control_parser = subparsers.add_parser("control-bot")
+    control_parser.set_defaults(func=_cmd_control_bot)
+
     args = parser.parse_args(argv)
     return args.func(args)
+
+
+def _cmd_control_bot(args) -> int:
+    from src.control_bot import main as control_main
+
+    return control_main([])
 
 
 if __name__ == "__main__":

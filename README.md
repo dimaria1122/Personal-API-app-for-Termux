@@ -140,3 +140,13 @@ bash scripts/check_status.sh
 ```
 
 State is stored in `data/state.json`.
+
+## Telegram Control Bot
+
+Run a separate control bot if you want one-tap control from inside Telegram:
+
+```bash
+bash scripts/run_control_bot.sh
+```
+
+It needs `CONTROL_BOT_TOKEN` from BotFather, plus `CONTROL_ALLOWED_USER_IDS` or `CONTROL_ALLOWED_USERNAMES`. It still reuses `TELEGRAM_API_ID` and `TELEGRAM_API_HASH`.

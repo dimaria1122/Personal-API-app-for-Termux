@@ -192,3 +192,41 @@ bash scripts/check_status.sh
 ### 4. 想换成自己的 API
 
 把自己的 `TELEGRAM_API_ID` 和 `TELEGRAM_API_HASH` 写进 `~/.tg-sign.env`，重新 source 一次即可。
+
+## Telegram 控制 bot
+
+如果你想在 Telegram 里一键操作，而不是每次进 Termux 手敲命令，可以再启动一个控制 bot。
+
+需要的 TOKEN 是 **BotFather 创建的 bot token**，写到环境变量：
+
+```bash
+export CONTROL_BOT_TOKEN=123456:ABCDEF_your_bot_token
+```
+
+还需要设置允许操作的人：
+
+```bash
+export CONTROL_ALLOWED_USER_IDS="12345678,87654321"
+export CONTROL_ALLOWED_USERNAMES="myname,othername"
+```
+
+说明：
+
+- `CONTROL_ALLOWED_USER_IDS` 建议优先用 Telegram 数字 ID。
+- `CONTROL_ALLOWED_USERNAMES` 是可选的，写用户名，不要写 `@` 也可以。
+- 旧变量名 `TELEGRAM_CONTROL_BOT_TOKEN` 仍然兼容，但建议以后统一用 `CONTROL_BOT_TOKEN`。
+- 控制 bot 只负责入口和权限，不改现有签到解析逻辑。
+
+在 Termux 里运行：
+
+```bash
+bash scripts/run_control_bot.sh
+```
+
+控制 bot 面板里会有这三个按钮：
+
+- `Run Now`
+- `Dry Run`
+- `Status`
+
+控制 bot 还会继续读取你已有的 `TELEGRAM_API_ID` 和 `TELEGRAM_API_HASH`，所以这两个环境变量也要保留。

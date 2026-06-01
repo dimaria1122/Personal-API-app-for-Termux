@@ -80,3 +80,25 @@ def test_is_task_due_dispatches_by_schedule_mode():
     }
 
     assert is_task_due(now, "main", task, {"last_success_date": "2026-06-01"})
+
+
+
+
+def test_next_eligible_at_blocks_task_until_due():
+    now = datetime(2026, 6, 1, 12, 0, tzinfo=ZoneInfo("Asia/Shanghai"))
+    task = {
+        "name": "dw759_interval",
+        "schedule": {
+            "mode": "interval_after_success",
+            "timezone": "Asia/Shanghai",
+            "min_interval_hours": 24,
+            "random_delay_minutes": [0, 0],
+        },
+    }
+
+    assert not is_task_due(
+        now,
+        "main",
+        task,
+        {"next_eligible_at": "2026-06-01T16:32:00+08:00"},
+    )
