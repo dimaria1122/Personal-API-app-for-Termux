@@ -1,5 +1,7 @@
 # Telegram Termux Sign-In
 
+Chinese phone setup guide: [README_CN.md](README_CN.md)
+
 Phone-first Telegram sign-in scheduler for personal accounts. The first version runs in Termux, stores local Telegram sessions, and supports two scheduling modes:
 
 - `calendar_day`: the bot allows a new sign-in after the local date changes.
