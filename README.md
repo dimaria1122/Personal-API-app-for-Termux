@@ -19,7 +19,9 @@ In Termux, from the project directory:
 bash scripts/setup_termux.sh
 ```
 
-Then create a local credentials file:
+This repo includes a temporary public Telegram Desktop API identity in `config/public-api.env` so you can verify the phone workflow first.
+
+When your own Telegram API application works, create a local override file:
 
 ```bash
 cat > ~/.tg-sign.env <<'EOF'
@@ -30,7 +32,7 @@ chmod 600 ~/.tg-sign.env
 source ~/.tg-sign.env
 ```
 
-You get `api_id` and `api_hash` from Telegram's official API application page: `https://my.telegram.org/apps`.
+`~/.tg-sign.env` takes precedence over `config/public-api.env`. You get your own `api_id` and `api_hash` from Telegram's official API application page: `https://my.telegram.org/apps`.
 
 ## iQOO / vivo Background Settings
 
@@ -105,7 +107,6 @@ Example task that must wait after the last successful sign-in:
 Run:
 
 ```bash
-source ~/.tg-sign.env
 bash scripts/login_accounts.sh
 ```
 
@@ -124,7 +125,6 @@ The output shows `DUE account:task` or `SKIP account:task not-due`.
 ## Run Scheduler
 
 ```bash
-source ~/.tg-sign.env
 termux-wake-lock
 bash scripts/run_scheduler.sh
 ```

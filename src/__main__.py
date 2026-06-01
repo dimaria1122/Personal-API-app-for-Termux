@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import argparse
-import os
 from datetime import datetime
 from pathlib import Path
 
 from src.config_loader import load_accounts, load_tasks
+from src.credentials import load_api_credentials
 from src.scheduler import is_task_due
 from src.state_store import load_state, save_state
 from src.task_runner import build_status_report, run_task_for_account
@@ -25,13 +25,10 @@ def _default_account_map(accounts: list[dict]) -> dict[str, dict]:
 
 
 def _build_transport(account_dir: str | Path):
-    api_id_value = os.environ.get("TELEGRAM_API_ID")
-    api_hash = os.environ.get("TELEGRAM_API_HASH")
-    if not api_id_value or not api_hash:
-        raise RuntimeError("Set TELEGRAM_API_ID and TELEGRAM_API_HASH before using the Telegram backend.")
+    credentials = load_api_credentials()
     from src.telegram_backend import PyrogramTransport
 
-    return PyrogramTransport(api_id=int(api_id_value), api_hash=api_hash, sessions_dir=account_dir)
+    return PyrogramTransport(api_id=credentials.api_id, api_hash=credentials.api_hash, sessions_dir=account_dir)
 
 
 def _cmd_status(args) -> int:

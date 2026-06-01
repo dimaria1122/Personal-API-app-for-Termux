@@ -7,6 +7,9 @@ cd "$SCRIPT_DIR/.."
 if [ -f "$HOME/.tg-sign.env" ]; then
   # shellcheck disable=SC1090
   source "$HOME/.tg-sign.env"
+elif [ -f "config/public-api.env" ]; then
+  # shellcheck disable=SC1091
+  source "config/public-api.env"
 fi
 
 SLEEP_SECONDS="${SLEEP_SECONDS:-300}"
