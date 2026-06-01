@@ -45,9 +45,12 @@ bash scripts/setup_termux.sh
 - Python
 - Git
 - termux-api
+- python-yaml
 - Python 依赖
 
 如果你之前执行过旧版本脚本并看到 `ERROR: Installing pip is forbidden`，先 `git pull` 或重新下载最新仓库，再重新运行这个脚本。
+
+如果依赖安装时提示 `No module named 'yaml'`，说明 `python-yaml` 没装成功，先重新跑一次 `bash scripts/setup_termux.sh`。如果只缺 `pyrogram` 或 `tgcrypto`，按脚本里的提示单独补装即可。
 
 ## 配置账号
 
