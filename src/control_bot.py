@@ -162,6 +162,16 @@ def _deny(message, text: str) -> None:  # noqa: ANN001
     message.reply_text(text)
 
 
+def _ack_callback(query, *, text: str | None = None, show_alert: bool = False) -> None:  # noqa: ANN001
+    try:
+        if text is None:
+            query.answer()
+        else:
+            query.answer(text, show_alert=show_alert)
+    except Exception:  # noqa: BLE001
+        return
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="teleg-control-bot")
     parser.add_argument("--accounts", default="config/accounts.yaml")
@@ -211,10 +221,10 @@ def main(argv: list[str] | None = None) -> int:
     @app.on_callback_query()
     def _on_callback(_, query):  # noqa: ANN001
         if not _authorized(query.from_user):
-            return query.answer("Access denied.", show_alert=True)
+            return _ack_callback(query, text="Access denied.", show_alert=True)
 
         action = getattr(query, "data", "")
-        query.answer("Working...")
+        _ack_callback(query, text="Working...")
         if action == "control:status":
             text = _status_text(args.state)
         elif action == "control:dry_run":

@@ -4,6 +4,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from src.control_bot import (
+    _ack_callback,
     build_control_keyboard,
     is_allowed_user,
     parse_allowed_user_ids,
@@ -39,6 +40,14 @@ def test_ensure_session_dir_creates_missing_directory(workspace_tmp):
     assert result == session_dir
     assert session_dir.exists()
     assert session_dir.is_dir()
+
+
+def test_ack_callback_ignores_expired_callback_query():
+    class ExpiredQuery:
+        def answer(self, *args, **kwargs):
+            raise RuntimeError("QUERY_ID_INVALID")
+
+    _ack_callback(ExpiredQuery(), text="Working...")
 
 
 def test_run_scheduler_once_dry_run_reports_due_and_keeps_state_untouched(workspace_tmp):
